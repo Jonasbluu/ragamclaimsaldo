@@ -133,6 +133,8 @@ fetch(API_URL,{
 
 });
 
+}
+
 const namaRandom=[
 "RA***","SL***","GA**","VIP***",
 "JACKP****","MAXW****","BOS***",
