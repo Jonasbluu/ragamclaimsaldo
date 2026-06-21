@@ -120,7 +120,7 @@ fetch(API_URL,{
             window.location.href="https://ragam4d03.com/";
         };
 
-    },3000);
+    },6000);
 
 })
 .catch(err=>{
