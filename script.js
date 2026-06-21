@@ -144,6 +144,7 @@ fetch(API_URL,{
     },10000);
 
 })
+    }
 .catch(err=>{
 
     console.error(err);
