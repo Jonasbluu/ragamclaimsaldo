@@ -238,34 +238,3 @@ randomClaim();
 setInterval(randomClaim,
 Math.floor(Math.random()*1000)+2000
 );
-
-.loading{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,.8);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    color:#fff;
-    z-index:99999;
-}
-
-.loader{
-    width:60px;
-    height:60px;
-    border:6px solid rgba(255,255,255,.2);
-    border-top:6px solid gold;
-    border-radius:50%;
-    animation:spinloading 1s linear infinite;
-    margin-bottom:15px;
-}
-
-@keyframes spinloading{
-    100%{
-        transform:rotate(360deg);
-    }
-}
