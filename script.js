@@ -11,7 +11,7 @@ const warna=[
 "#8b2cff"
 ];
 
-const API_URL="https://script.google.com/macros/s/AKfycbwWeTFlnWoa6h1ksr_iifJcuBbkfHMD8-SqwRTNRUW8sN0FMX68c627TKb8p-Mr4Kxt/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwWeTFlnWoa6h1ksr_iifJcuBbkfHMD8-SqwRTNRUW8sN0FMX68c627TKb8p-Mr4Kxt/exec";
 
 const cv=document.getElementById("wheel");
 const ctx=cv.getContext("2d");
@@ -65,6 +65,9 @@ function resetForm(){
 
     spinBtn.onclick = spinWheel;
 
+    rot = 0;
+
+    cv.style.transform = "rotate(0deg)";
 }
 
 let rot=0;
@@ -86,11 +89,15 @@ fetch(API_URL,{
     method:"POST",
     body:JSON.stringify({
         userid:id,
-        action:"check"
+        hadiah:hasil,
+        action:"claim"
     })
 })
-.then(r=>r.json())
-.then(data=>{
+.then(r => r.json())
+.then(data => {
+    console.log(data);
+})
+.catch(console.error);
 
     if(data.status==="used"){
 
