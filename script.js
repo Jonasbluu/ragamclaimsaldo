@@ -66,49 +66,72 @@ pop("ISI USER ID DAHULU");
 return;
 }
 
-spinBtn.disabled=true;
-
-let win=Math.floor(Math.random()*hadiah.length);
-
-const sectorSize=360/hadiah.length;
-let angle=(win*sectorSize)+(sectorSize/2);
-
-rot+=3600-angle-90;
-
-cv.style.transform=`rotate(${rot}deg)`;
-
-setTimeout(()=>{
-
-let hasil=hadiah[win];
-
-spinBtn.innerHTML="CLAIM "+hasil;
-
-pop("SELAMAT! KAMU MENDAPATKAN "+hasil);
-
-spinBtn.disabled=false;
-
-spinBtn.onclick=()=>{
-window.location.href="https://ragam4d03.com/";
-};
+spinBtn.disabled = true;
 
 fetch(API_URL,{
-method:"POST",
-body:JSON.stringify({
-userid:id,
-hadiah:hasil
-})
+    method:"POST",
+    body:JSON.stringify({
+        userid:id,
+        action:"check"
+    })
 })
 .then(r=>r.json())
 .then(data=>{
-if(data.status==="used"){
-pop("USER ID SUDAH PERNAH MELAKUKAN SPIN");
-}
+
+    if(data.status==="used"){
+
+        pop("USER ID SUDAH PERNAH MELAKUKAN SPIN");
+        spinBtn.disabled=false;
+        return;
+
+    }
+
+    // BARU SPIN
+    let win=Math.floor(Math.random()*hadiah.length);
+
+    const sectorSize=360/hadiah.length;
+    let angle=(win*sectorSize)+(sectorSize/2);
+
+    rot+=3600-angle-90;
+
+    cv.style.transform=`rotate(${rot}deg)`;
+
+    setTimeout(()=>{
+
+        let hasil=hadiah[win];
+
+        spinBtn.innerHTML="CLAIM "+hasil;
+
+        pop("SELAMAT! KAMU MENDAPATKAN "+hasil);
+
+        fetch(API_URL,{
+            method:"POST",
+            body:JSON.stringify({
+                userid:id,
+                hadiah:hasil,
+                action:"claim"
+            })
+        })
+        .catch(console.error);
+
+        spinBtn.disabled=false;
+
+        spinBtn.onclick=()=>{
+            window.location.href="https://ragam4d03.com/";
+        };
+
+    },3000);
+
 })
-.catch(console.error);
+.catch(err=>{
 
-},3000);
+    console.error(err);
 
-};
+    pop("GAGAL TERHUBUNG KE SERVER");
+
+    spinBtn.disabled=false;
+
+});
 
 const namaRandom=[
 "RA***","SL***","GA**","VIP***",
