@@ -78,9 +78,13 @@ async function spinWheel(){
 
     let id = userid.value.trim();
 
-    if(!id){
-        pop("ISI USER ID DAHULU");
-        return;
+if(!id){
+    pop("ISI USER ID DAHULU");
+    return;
+}
+
+spinBtn.disabled = true;
+spinBtn.innerHTML = "MEMERIKSA...";
     }
 
     spinBtn.disabled = true;
@@ -97,13 +101,17 @@ async function spinWheel(){
 
         if(data.status==="used"){
 
-            pop("USER ID SUDAH PERNAH MELAKUKAN SPIN");
-            spinBtn.disabled=false;
-            return;
+    pop("USER ID SUDAH PERNAH MELAKUKAN SPIN");
+    spinBtn.disabled=false;
+    spinBtn.innerHTML="PUTAR SEKARANG";
+    return;
 
-        }
+}
 
-        let win=Math.floor(Math.random()*hadiah.length);
+spinBtn.innerHTML = "MEMUTAR...";
+
+// BARU SPIN
+let win=Math.floor(Math.random()*hadiah.length);
 
         const sectorSize=360/hadiah.length;
         let angle=(win*sectorSize)+(sectorSize/2);
@@ -154,15 +162,16 @@ spinBtn.onclick=()=>{
         },6000);
 
     })
-    .catch(err=>{
+   .catch(err=>{
 
-        console.error(err);
+    console.error(err);
 
-        pop("GAGAL TERHUBUNG KE SERVER");
+    pop("GAGAL TERHUBUNG KE SERVER");
 
-        spinBtn.disabled=false;
+    spinBtn.disabled=false;
+    spinBtn.innerHTML="PUTAR SEKARANG";
 
-    });
+});
 
 }
 
