@@ -76,84 +76,78 @@ spinBtn.onclick = spinWheel;
 
 async function spinWheel(){
 
-let id=userid.value.trim();
+    let id = userid.value.trim();
 
-if(!id){
-pop("ISI USER ID DAHULU");
-return;
-}
-
-spinBtn.disabled = true;
-
-fetch(API_URL,{
-    method:"POST",
-    body:JSON.stringify({
-        userid:id,
-        hadiah:hasil,
-        action:"claim"
-    })
-})
-.then(r => r.json())
-.then(data => {
-    console.log(data);
-})
-.catch(console.error);
-
-    if(data.status==="used"){
-
-        pop("USER ID SUDAH PERNAH MELAKUKAN SPIN");
-        spinBtn.disabled=false;
+    if(!id){
+        pop("ISI USER ID DAHULU");
         return;
-
     }
 
-    // BARU SPIN
-    let win=Math.floor(Math.random()*hadiah.length);
+    spinBtn.disabled = true;
 
-    const sectorSize=360/hadiah.length;
-    let angle=(win*sectorSize)+(sectorSize/2);
-
-    rot+=3600-angle-90;
-
-    cv.style.transform=`rotate(${rot}deg)`;
-
-     setTimeout(()=>{
-
-        let hasil=hadiah[win];
-
-        spinBtn.innerHTML="CLAIM "+hasil;
-
-        pop("SELAMAT! KAMU MENDAPATKAN "+hasil);
-
-        fetch(API_URL,{
-            method:"POST",
-            body:JSON.stringify({
-                userid:id,
-                hadiah:hasil,
-                action:"claim"
-            })
+    fetch(API_URL,{
+        method:"POST",
+        body:JSON.stringify({
+            userid:id,
+            action:"check"
         })
-        .catch(console.error);
+    })
+    .then(r=>r.json())
+    .then(data=>{
+
+        if(data.status==="used"){
+
+            pop("USER ID SUDAH PERNAH MELAKUKAN SPIN");
+            spinBtn.disabled=false;
+            return;
+
+        }
+
+        let win=Math.floor(Math.random()*hadiah.length);
+
+        const sectorSize=360/hadiah.length;
+        let angle=(win*sectorSize)+(sectorSize/2);
+
+        rot+=3600-angle-90;
+
+        cv.style.transform=`rotate(${rot}deg)`;
+
+        setTimeout(()=>{
+
+            let hasil=hadiah[win];
+
+            spinBtn.innerHTML="CLAIM "+hasil;
+
+            pop("SELAMAT! KAMU MENDAPATKAN "+hasil);
+
+            fetch(API_URL,{
+                method:"POST",
+                body:JSON.stringify({
+                    userid:id,
+                    hadiah:hasil,
+                    action:"claim"
+                })
+            })
+            .catch(console.error);
+
+            spinBtn.disabled=false;
+
+            spinBtn.onclick=()=>{
+                window.location.href="https://ragam4d03.com/";
+            };
+
+        },6000);
+
+    })
+    .catch(err=>{
+
+        console.error(err);
+
+        pop("GAGAL TERHUBUNG KE SERVER");
 
         spinBtn.disabled=false;
 
-        spinBtn.onclick=()=>{
-            window.location.href="https://ragam4d03.com/";
-        };
-
-    },10000);
-
-})
-    }
-.catch(err=>{
-
-    console.error(err);
-
-    pop("GAGAL TERHUBUNG KE SERVER");
-
-    spinBtn.disabled=false;
-
-});
+    });
 
 }
 
