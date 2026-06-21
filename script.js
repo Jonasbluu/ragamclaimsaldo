@@ -11,7 +11,7 @@ const warna=[
 "#8b2cff"
 ];
 
-const API_URL = "https://script.google.com/macros/s/AKfycbwWeTFlnWoa6h1ksr_iifJcuBbkfHMD8-SqwRTNRUW8sN0FMX68c627TKb8p-Mr4Kxt/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbw99-Zhf8ANVGI5E7cOMQZfCWK4lpYxwYC2-QaHXUjzD2Aw3tfeAfjCEoGqoDx58tje/exec";
 
 const cv=document.getElementById("wheel");
 const ctx=cv.getContext("2d");
