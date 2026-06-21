@@ -15,6 +15,8 @@ const API_URL = "https://script.google.com/macros/s/AKfycbw99-Zhf8ANVGI5E7cOMQZf
 
 const cv=document.getElementById("wheel");
 const ctx=cv.getContext("2d");
+const loading=document.getElementById("loading");
+}
 
 function draw(){
 let c=200,r=190;
@@ -85,6 +87,7 @@ if(!id){
 
 spinBtn.disabled = true;
 spinBtn.innerHTML = "MEMERIKSA...";
+loading.style.display = "flex";
     }
 
     spinBtn.disabled = true;
@@ -99,15 +102,20 @@ spinBtn.innerHTML = "MEMERIKSA...";
     .then(r=>r.json())
     .then(data=>{
 
-        if(data.status==="used"){
+       if(data.status==="used"){
 
-    pop("USER ID SUDAH PERNAH MELAKUKAN SPIN");
+    loading.style.display="none";
+
+    pop("CLAIM HANYA 1 KALI KAKAK 😛");
+
     spinBtn.disabled=false;
     spinBtn.innerHTML="PUTAR SEKARANG";
+
     return;
 
 }
 
+loading.style.display="none";
 spinBtn.innerHTML = "MEMUTAR...";
 
 // BARU SPIN
@@ -162,9 +170,11 @@ spinBtn.onclick=()=>{
         },6000);
 
     })
-   .catch(err=>{
+ .catch(err=>{
 
     console.error(err);
+
+    loading.style.display="none";
 
     pop("GAGAL TERHUBUNG KE SERVER");
 
@@ -229,3 +239,34 @@ randomClaim();
 setInterval(randomClaim,
 Math.floor(Math.random()*1000)+2000
 );
+
+.loading{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color:#fff;
+    z-index:99999;
+}
+
+.loader{
+    width:60px;
+    height:60px;
+    border:6px solid rgba(255,255,255,.2);
+    border-top:6px solid gold;
+    border-radius:50%;
+    animation:spinloading 1s linear infinite;
+    margin-bottom:15px;
+}
+
+@keyframes spinloading{
+    100%{
+        transform:rotate(360deg);
+    }
+}
