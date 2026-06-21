@@ -106,7 +106,7 @@ pop("USER ID SUDAH PERNAH MELAKUKAN SPIN");
 })
 .catch(console.error);
 
-},6000);
+},3000);
 
 };
 
