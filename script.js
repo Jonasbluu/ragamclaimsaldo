@@ -52,8 +52,11 @@ ctx.fill();
 draw();
 
 function pop(t){
-msg.innerText=t;
-popup.style.display="flex";
+
+    msg.innerText = t;
+
+    popup.classList.add("show");
+
 }
 
 function resetForm(){
