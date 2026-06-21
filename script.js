@@ -55,9 +55,23 @@ msg.innerText=t;
 popup.style.display="flex";
 }
 
+function resetForm(){
+
+    userid.value = "";
+
+    spinBtn.innerHTML = "PUTAR SEKARANG";
+
+    spinBtn.disabled = false;
+
+    spinBtn.onclick = spinWheel;
+
+}
+
 let rot=0;
 
-spinBtn.onclick=async ()=>{
+spinBtn.onclick = spinWheel;
+
+async function spinWheel(){
 
 let id=userid.value.trim();
 
