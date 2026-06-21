@@ -307,6 +307,7 @@ transform:scale(1) translateY(0);
 width:90%;
 max-width:420px;
 
+animation: popupEnter .35s ease;
 padding:35px;
 
 text-align:center;
