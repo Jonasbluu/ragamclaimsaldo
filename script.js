@@ -1,4 +1,4 @@
-const hadiah=["20.000","30.000","40.000","50.000","20.000","30.000","40.000","FREE CHIP"];
+const hadiah=["20.000","25.000","30.000","35.000","40.000","45.000","50.000","100.000"];
 
 const warna=[
 "#ffd700",
@@ -111,23 +111,27 @@ pop("USER ID SUDAH PERNAH MELAKUKAN SPIN");
 };
 
 const namaRandom=[
-"RAGAM01","SLOT88","GACOR99","VIP777",
-"JACKPOT85","MAXWIN929","BOSKU17",
-"RAJA123","SULTAN88","HOKI55",
-"CUAN159","BIGWIN99","DEWA87",
-"LION684","KING45","SENOPATI",
-"udacan147","peng222","Ondonjp",
-"salammjp1","Xsimer11","kopral30",
-"ikok99","brovipx500","Cucujeus20",
-"gacorbos5","hebat22","Davidpras"
+"RA***","SL***","GA**","VIP***",
+"JACKP****","MAXW****","BOS***",
+"RAJ***","SULT***","HO***",
+"CUAN***","BIGWI***","DEW***",
+"LION***","KONTOLKECE***","SENOP***",
+"udacan***","peng***","Ondo***",
+"salamm***","Xsime***","kopra***",
+"iko***","brovipx***","Cucujeu***",
+"gacor***","heba***","Davidp***","MIMEK***",
+"BIJIMEL***","GARUKPE***","HAMBATUH**",
+"RAGAMGAC***","SEMPAKBO***","JP100JT***",
 ];
 
 const hadiahRandom=[
 "Rp 20.000",
-"Rp 30.000",
-"Rp 40.000",
+"Rp 35.000",
+"Rp 100.000",
 "Rp 50.000",
-"FREE CHIP"
+"Rp 25.0000",
+"Rp 45.0000",
+"Rp 30.0000",
 ];
 
 function randomClaim(){
