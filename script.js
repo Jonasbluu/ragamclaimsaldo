@@ -117,7 +117,7 @@ fetch(API_URL,{
 
     cv.style.transform=`rotate(${rot}deg)`;
 
-    setTimeout(()=>{
+     setTimeout(()=>{
 
         let hasil=hadiah[win];
 
