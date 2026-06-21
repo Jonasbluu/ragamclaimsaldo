@@ -16,7 +16,6 @@ const API_URL = "https://script.google.com/macros/s/AKfycbw99-Zhf8ANVGI5E7cOMQZf
 const cv=document.getElementById("wheel");
 const ctx=cv.getContext("2d");
 const loading=document.getElementById("loading");
-}
 
 function draw(){
 let c=200,r=190;
@@ -88,7 +87,7 @@ if(!id){
 spinBtn.disabled = true;
 spinBtn.innerHTML = "MEMERIKSA...";
 loading.style.display = "flex";
-    }
+    
 
     spinBtn.disabled = true;
 
