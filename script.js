@@ -121,21 +121,36 @@ async function spinWheel(){
             pop("SELAMAT! KAMU MENDAPATKAN "+hasil);
 
             fetch(API_URL,{
-                method:"POST",
-                body:JSON.stringify({
-                    userid:id,
-                    hadiah:hasil,
-                    action:"claim"
-                })
-            })
-            .catch(console.error);
+    method:"POST",
+    body:JSON.stringify({
+        userid:id,
+        hadiah:hasil,
+        action:"claim"
+    })
+})
+.then(r => r.json())
+.then(data => {
 
-            spinBtn.disabled=false;
+    console.log("CLAIM:", data);
 
-            spinBtn.onclick=()=>{
-                window.location.href="https://ragam4d03.com/";
-            };
+    if(data.status !== "saved"){
+        pop("GAGAL MENYIMPAN DATA");
+    }
 
+})
+.catch(err => {
+
+    console.error(err);
+
+    pop("GAGAL MENYIMPAN DATA");
+
+});
+
+spinBtn.disabled=false;
+
+spinBtn.onclick=()=>{
+    window.location.href="https://ragam4d03.com/";
+};
         },6000);
 
     })
