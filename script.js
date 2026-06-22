@@ -93,7 +93,10 @@ if(!id){
 
 spinBtn.disabled = true;
 spinBtn.innerHTML = "MEMERIKSA...";
-loading.style.display = "flex";
+
+loading.className="";
+loading.innerHTML="MEMERIKSA USER ID...";
+loading.style.display="flex";
     
 
     spinBtn.disabled = true;
@@ -108,17 +111,37 @@ loading.style.display = "flex";
     .then(r=>r.json())
     .then(data=>{
 
-       if(data.status==="used"){
+      if(data.status==="used"){
 
-    loading.style.display="none";
+    loading.className="error-claim";
 
-    pop("CLAIM HANYA 1 KALI KAKAK 😛");
+    loading.innerHTML=`
+        <div class="error-circle">
+            <div class="error-x">✖</div>
+        </div>
+
+        <div class="error-text">
+            ID INI SUDAH CLAIM
+        </div>
+
+        <button id="okClaimBtn" class="error-ok">
+            OK
+        </button>
+    `;
+
+    loading.style.display="flex";
 
     spinBtn.disabled=false;
     spinBtn.innerHTML="PUTAR SEKARANG";
 
-    return;
+    document.getElementById("okClaimBtn").onclick=()=>{
 
+        loading.className="";
+        loading.style.display="none";
+
+    };
+
+    return;
 }
 
 loading.style.display="none";
