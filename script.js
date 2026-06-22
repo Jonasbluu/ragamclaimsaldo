@@ -119,15 +119,12 @@ loading.style.display="flex";
             flex-direction:column;
             align-items:center;
             justify-content:center;
-            gap:12px;
-            text-align:center;
-            width:100%;
-            height:100%;
+            gap:15px;
         ">
 
             <div style="
-                width:70px;
-                height:70px;
+                width:80px;
+                height:80px;
                 border-radius:50%;
                 border:3px solid #ff3333;
 
@@ -136,32 +133,36 @@ loading.style.display="flex";
                 justify-content:center;
 
                 color:#ff3333;
-                font-size:42px;
-                font-weight:bold;
+                font-size:46px;
+                font-weight:900;
 
                 box-shadow:
                     0 0 10px red,
-                    0 0 20px red;
+                    0 0 25px red;
             ">
                 ✕
             </div>
 
             <div style="
                 color:#fff;
-                font-size:16px;
+                font-size:18px;
                 font-weight:700;
+                font-family:'Orbitron',sans-serif;
             ">
                 ID INI SUDAH CLAIM
             </div>
 
             <button id="okClaimBtn"
                 style="
+                    width:120px;
+                    height:45px;
+
+                    border:none;
+                    border-radius:10px;
+
                     background:#ff3333;
                     color:#fff;
-                    border:none;
-                    border-radius:8px;
-                    padding:10px 30px;
-                    font-weight:bold;
+                    font-weight:700;
                     cursor:pointer;
                 ">
                 OK
@@ -170,15 +171,18 @@ loading.style.display="flex";
         </div>
     `;
 
-    spinBtn.disabled=false;
-    spinBtn.innerHTML="PUTAR SEKARANG";
-
     document.getElementById("okClaimBtn").onclick=()=>{
 
-        loading.innerHTML="MEMERIKSA USER ID...";
-        loading.style.display="none";
+        loading.innerHTML=`
+            <div class="loader"></div>
+            <div>MEMERIKSA USER ID...</div>
+        `;
 
+        loading.style.display="none";
     };
+
+    spinBtn.disabled=false;
+    spinBtn.innerHTML="PUTAR SEKARANG";
 
     return;
 }
