@@ -133,7 +133,7 @@ let win=Math.floor(Math.random()*hadiah.length);
 
             spinBtn.innerHTML="CLAIM "+hasil;
 
-            pop("🎉 SELAMAT! 🎉<br>KAMU MENDAPATKAN<br>Rp "+hasil);
+            pop("🏆<br>SELAMAT!<br><br>ANDA MENDAPATKAN<br><span style='font-size:42px;color:#ffd700'>Rp "+hasil+"</span>");
 
             fetch(API_URL,{
     method:"POST",
