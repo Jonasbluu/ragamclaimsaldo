@@ -201,7 +201,52 @@ let win=Math.floor(Math.random()*hadiah.length);
 
             spinBtn.innerHTML="CLAIM "+hasil;
 
-            pop("🏆<br>SELAMAT!<br><br>ANDA MENDAPATKAN<br><span style='font-size:42px;color:#ffd700'>"+hasil+"</span>");
+            pop(`
+<div style="text-align:center">
+
+    <div style="
+        font-size:42px;
+        margin-bottom:10px;
+        filter:drop-shadow(0 0 10px gold);
+    ">
+        🏆
+    </div>
+
+    <div style="
+        font-size:30px;
+        font-weight:900;
+        color:#ffd700;
+        text-shadow:
+            0 0 8px #ffd700,
+            0 0 20px #ffd700;
+        margin-bottom:15px;
+    ">
+        SELAMAT!
+    </div>
+
+    <div style="
+        font-size:18px;
+        color:#ffffff;
+        margin-bottom:15px;
+    ">
+        ANDA MENDAPATKAN
+    </div>
+
+    <div style="
+        font-size:54px;
+        font-weight:900;
+        color:#ffd700;
+        line-height:1;
+        text-shadow:
+            0 0 10px #ffd700,
+            0 0 25px #ffd700,
+            0 0 40px #ffb300;
+    ">
+        ${hasil}
+    </div>
+
+</div>
+`);
 
             fetch(API_URL,{
     method:"POST",
