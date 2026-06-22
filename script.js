@@ -113,63 +113,59 @@ loading.style.display="flex";
 
      if(data.status==="used"){
 
-    loading.innerHTML=`
-        <div style="
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            gap:15px;
-        ">
+   loading.innerHTML=`
+<div style="
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:15px;
+">
 
-            <div style="
-                width:80px;
-                height:80px;
-                border-radius:50%;
-                border:3px solid #ff3333;
+<div style="
+width:80px;
+height:80px;
+border-radius:50%;
+border:3px solid #ff3333;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#ff3333;
+font-size:46px;
+font-weight:900;
+box-shadow:0 0 10px red,0 0 25px red;
+">
+✕
+</div>
 
-                display:flex;
-                align-items:center;
-                justify-content:center;
+<div style="
+color:#fff;
+font-size:18px;
+font-weight:700;
+font-family:'Orbitron',sans-serif;
+">
+ID INI SUDAH CLAIM
+</div>
 
-                color:#ff3333;
-                font-size:46px;
-                font-weight:900;
+<button id="okClaimBtn"
+style="
+width:120px;
+height:45px;
+border:none;
+border-radius:10px;
+background:#ff3333;
+color:#fff;
+font-weight:700;
+cursor:pointer;
+">
+OK
+</button>
 
-                box-shadow:
-                    0 0 10px red,
-                    0 0 25px red;
-            ">
-                ✕
-            </div>
-
-            <div style="
-                color:#fff;
-                font-size:18px;
-                font-weight:700;
-                font-family:'Orbitron',sans-serif;
-            ">
-                ID INI SUDAH CLAIM
-            </div>
-
-            <button id="okClaimBtn"
-                style="
-                    width:120px;
-                    height:45px;
-
-                    border:none;
-                    border-radius:10px;
-
-                    background:#ff3333;
-                    color:#fff;
-                    font-weight:700;
-                    cursor:pointer;
-                ">
-                OK
-            </button>
-
-        </div>
-    `;
+</div>
+`;
 
     document.getElementById("okClaimBtn").onclick=()=>{
 
