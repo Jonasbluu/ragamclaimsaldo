@@ -52,11 +52,8 @@ ctx.fill();
 draw();
 
 function pop(t){
-
-    msg.innerText = t;
-
-    popup.classList.add("show");
-
+msg.innerHTML=t;
+popup.classList.add("show");
 }
 
 function resetForm(){
@@ -136,7 +133,7 @@ let win=Math.floor(Math.random()*hadiah.length);
 
             spinBtn.innerHTML="CLAIM "+hasil;
 
-            pop("SELAMAT! KAMU MENDAPATKAN "+hasil);
+            pop("🎉 SELAMAT! 🎉<br>KAMU MENDAPATKAN<br>Rp "+hasil);
 
             fetch(API_URL,{
     method:"POST",
