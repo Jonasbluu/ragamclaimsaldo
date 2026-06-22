@@ -93,10 +93,7 @@ if(!id){
 
 spinBtn.disabled = true;
 spinBtn.innerHTML = "MEMERIKSA...";
-
-loading.className="";
-loading.innerHTML="MEMERIKSA USER ID...";
-loading.style.display="flex";
+loading.style.display = "flex";
     
 
     spinBtn.disabled = true;
@@ -111,72 +108,17 @@ loading.style.display="flex";
     .then(r=>r.json())
     .then(data=>{
 
-     if(data.status==="used"){
+       if(data.status==="used"){
 
-    document.getElementById("loadingContent").innerHTML=`
-        <div style="
-            width:80px;
-            height:80px;
-            border-radius:50%;
-            border:3px solid #ff3333;
+    loading.style.display="none";
 
-            display:flex;
-            align-items:center;
-            justify-content:center;
-
-            margin:auto;
-
-            color:#ff3333;
-            font-size:46px;
-            font-weight:900;
-
-            box-shadow:
-                0 0 10px red,
-                0 0 25px red;
-        ">
-            ✕
-        </div>
-
-        <div style="
-            margin-top:15px;
-            font-size:18px;
-            font-weight:700;
-            font-family:'Orbitron',sans-serif;
-        ">
-            ID INI SUDAH CLAIM
-        </div>
-
-        <button id="okClaimBtn"
-            style="
-                margin-top:15px;
-                width:120px;
-                height:45px;
-                border:none;
-                border-radius:10px;
-                background:#ff3333;
-                color:#fff;
-                font-weight:700;
-            ">
-            OK
-        </button>
-    `;
-
-    document.getElementById("okClaimBtn").onclick=()=>{
-
-        document.getElementById("loadingContent").innerHTML=`
-            <div class="loader"></div>
-            <div id="loadingText">
-                MEMERIKSA USER ID...
-            </div>
-        `;
-
-        loading.style.display="none";
-    };
+    pop("CLAIM HANYA 1 KALI KAKAK 😛");
 
     spinBtn.disabled=false;
     spinBtn.innerHTML="PUTAR SEKARANG";
 
     return;
+
 }
 
 loading.style.display="none";
