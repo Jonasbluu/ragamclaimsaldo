@@ -36,7 +36,7 @@ ctx.translate(c,c);
 ctx.rotate(a+(b-a)/2);
 
 ctx.fillStyle="#fff";
-ctx.font="bold 22px Arial";
+ctx.font="bold 20px Arial";
 ctx.textAlign="center";
 ctx.fillText(hadiah[i],130,5);
 
