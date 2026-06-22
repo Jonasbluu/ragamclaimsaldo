@@ -299,8 +299,7 @@ visibility:visible;
 }
 
 .popup.show .popbox{
-transform:scale(1) translateY(0);
-animation:popupBounce .5s ease;
+animation:popupWin .75s cubic-bezier(.17,.84,.44,1) forwards;
 }
 
 .popbox{
@@ -333,9 +332,10 @@ inset 0 0 20px rgba(255,255,255,.05);
 position:relative;
 overflow:hidden;
 
-transform:scale(.7) translateY(30px);
+transform:scale(.5) translateY(80px);
 
-transition:.4s cubic-bezier(.17,.84,.44,1);
+transition:none;
+
 }
 
 .popbox::before{
@@ -470,6 +470,30 @@ transform:scale(1) translateY(0);
 }
 
 }
+
+@keyframes popupWin{
+
+0%{
+opacity:0;
+transform:scale(.4) translateY(100px);
+}
+
+50%{
+opacity:1;
+transform:scale(1.08) translateY(-10px);
+}
+
+75%{
+transform:scale(.96) translateY(3px);
+}
+
+100%{
+opacity:1;
+transform:scale(1) translateY(0);
+}
+
+}
+
 .note{
     text-align:center;
     color:#ccc;
