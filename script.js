@@ -211,31 +211,29 @@ let win=Math.floor(Math.random()*hadiah.length);
     letter-spacing:2px;
     margin-bottom:10px;
 ">
-         SELAMAT 
-    </div>
+         <div style="
+    font-size:15px;
+    color:#bdbdbd;
+    letter-spacing:2px;
+    margin-bottom:15px;
+">
+    BONUS SALDO
+</div>
 
-    <div style="
-        font-size:14px;
-        color:#ddd;
-        margin-bottom:20px;
-    ">
-        KAKAK MENDAPATKAN
-    </div>
+<div style="
+    font-size:58px;
+    font-weight:900;
+    line-height:1;
 
-    <div style="
-        font-size:78px;
-        font-weight:900;
-        line-height:1;
-        color:#ffd700;
+    color:#ffe082;
 
-        text-shadow:
-            0 0 10px #ffd700,
-            0 0 20px #ffd700,
-            0 0 40px #ffae00,
-            0 0 60px #ffae00;
-    ">
-        ${hasil}
-    </div>
+    margin:10px 0 15px;
+
+    text-shadow:
+        0 0 8px rgba(255,215,0,.18);
+">
+    ${hasil}
+</div>
 
 </div>
 `);
