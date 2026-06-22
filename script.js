@@ -146,7 +146,7 @@ loading.innerHTML=`
             font-weight:700;
             text-align:center;
         ">
-            ID INI SUDAH CLAIM
+            ID SUDAH PERNAH CLAIM
         </div>
 
         <button id="okClaimBtn"
@@ -221,7 +221,7 @@ let win=Math.floor(Math.random()*hadiah.length);
 </div>
 
 <div style="
-    font-size:58px;
+    font-size:50px;
     font-weight:900;
     line-height:1;
 
