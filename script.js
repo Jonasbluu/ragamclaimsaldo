@@ -110,14 +110,75 @@ loading.style.display = "flex";
 
        if(data.status==="used"){
 
+loading.innerHTML=`
+    <div style="
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:15px;
+    ">
+
+        <div style="
+            width:80px;
+            height:80px;
+            border-radius:50%;
+            border:3px solid #ff3333;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            color:#ff3333;
+            font-size:48px;
+            font-weight:bold;
+
+            box-shadow:
+                0 0 10px #ff0000,
+                0 0 25px #ff0000;
+        ">
+            ✖
+        </div>
+
+        <div style="
+            color:#fff;
+            font-size:18px;
+            font-weight:700;
+            text-align:center;
+        ">
+            ID INI SUDAH CLAIM
+        </div>
+
+        <button id="okClaimBtn"
+            style="
+                background:#ff3333;
+                color:#fff;
+                border:none;
+                border-radius:8px;
+                padding:10px 30px;
+                font-weight:700;
+                cursor:pointer;
+            ">
+            OK
+        </button>
+
+    </div>
+`;
+
+spinBtn.disabled=false;
+spinBtn.innerHTML="PUTAR SEKARANG";
+
+document.getElementById("okClaimBtn").onclick=()=>{
+
+    loading.innerHTML=`
+        <div class="loader"></div>
+        <div>MEMERIKSA USER ID...</div>
+    `;
+
     loading.style.display="none";
+};
 
-    pop("USERID INI SUDAH CLAIM KAKAK");
-
-    spinBtn.disabled=false;
-    spinBtn.innerHTML="PUTAR SEKARANG";
-
-    return;
+return;
 
 }
 
