@@ -202,45 +202,37 @@ let win=Math.floor(Math.random()*hadiah.length);
             spinBtn.innerHTML="CLAIM "+hasil;
 
             pop(`
-<div style="text-align:center">
+<div style="text-align:center;">
 
     <div style="
-        font-size:42px;
+        font-size:24px;
+        font-weight:900;
+        color:#fff;
+        letter-spacing:2px;
         margin-bottom:10px;
-        filter:drop-shadow(0 0 10px gold);
     ">
-        🏆
+        🎉 SELAMAT 🎉
     </div>
 
     <div style="
-        font-size:30px;
+        font-size:14px;
+        color:#ddd;
+        margin-bottom:20px;
+    ">
+        ANDA BERHASIL MENDAPATKAN
+    </div>
+
+    <div style="
+        font-size:78px;
         font-weight:900;
-        color:#ffd700;
-        text-shadow:
-            0 0 8px #ffd700,
-            0 0 20px #ffd700;
-        margin-bottom:15px;
-    ">
-        SELAMAT!
-    </div>
-
-    <div style="
-        font-size:18px;
-        color:#ffffff;
-        margin-bottom:15px;
-    ">
-        ANDA MENDAPATKAN
-    </div>
-
-    <div style="
-        font-size:54px;
-        font-weight:900;
-        color:#ffd700;
         line-height:1;
+        color:#ffd700;
+
         text-shadow:
             0 0 10px #ffd700,
-            0 0 25px #ffd700,
-            0 0 40px #ffb300;
+            0 0 20px #ffd700,
+            0 0 40px #ffae00,
+            0 0 60px #ffae00;
     ">
         ${hasil}
     </div>
