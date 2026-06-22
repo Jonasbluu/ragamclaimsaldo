@@ -53,7 +53,7 @@ draw();
 
 function pop(t){
 
-msg.innerText=t;
+msg.innerHTML = t;
 
 popup.classList.remove("show");
 
