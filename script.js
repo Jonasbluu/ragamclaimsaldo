@@ -204,14 +204,14 @@ let win=Math.floor(Math.random()*hadiah.length);
             pop(`
 <div style="text-align:center;">
 
-    <div style="
-        font-size:24px;
-        font-weight:900;
-        color:#fff;
-        letter-spacing:2px;
-        margin-bottom:10px;
-    ">
-        🎉 SELAMAT 🎉
+   <div style="
+    font-size:24px;
+    font-weight:900;
+    color:#fff;
+    letter-spacing:2px;
+    margin-bottom:10px;
+">
+         SELAMAT 
     </div>
 
     <div style="
@@ -219,7 +219,7 @@ let win=Math.floor(Math.random()*hadiah.length);
         color:#ddd;
         margin-bottom:20px;
     ">
-        ANDA BERHASIL MENDAPATKAN
+        KAKAK MENDAPATKAN
     </div>
 
     <div style="
