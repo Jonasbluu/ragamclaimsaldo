@@ -111,32 +111,71 @@ loading.style.display="flex";
     .then(r=>r.json())
     .then(data=>{
 
-      if(data.status==="used"){
-
-    loading.className="error-claim";
+     if(data.status==="used"){
 
     loading.innerHTML=`
-        <div class="error-circle">
-            <div class="error-x">✖</div>
-        </div>
+        <div style="
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            gap:12px;
+            text-align:center;
+            width:100%;
+            height:100%;
+        ">
 
-        <div class="error-text">
-            ID INI SUDAH CLAIM
-        </div>
+            <div style="
+                width:70px;
+                height:70px;
+                border-radius:50%;
+                border:3px solid #ff3333;
 
-        <button id="okClaimBtn" class="error-ok">
-            OK
-        </button>
+                display:flex;
+                align-items:center;
+                justify-content:center;
+
+                color:#ff3333;
+                font-size:42px;
+                font-weight:bold;
+
+                box-shadow:
+                    0 0 10px red,
+                    0 0 20px red;
+            ">
+                ✕
+            </div>
+
+            <div style="
+                color:#fff;
+                font-size:16px;
+                font-weight:700;
+            ">
+                ID INI SUDAH CLAIM
+            </div>
+
+            <button id="okClaimBtn"
+                style="
+                    background:#ff3333;
+                    color:#fff;
+                    border:none;
+                    border-radius:8px;
+                    padding:10px 30px;
+                    font-weight:bold;
+                    cursor:pointer;
+                ">
+                OK
+            </button>
+
+        </div>
     `;
-
-    loading.style.display="flex";
 
     spinBtn.disabled=false;
     spinBtn.innerHTML="PUTAR SEKARANG";
 
     document.getElementById("okClaimBtn").onclick=()=>{
 
-        loading.className="";
+        loading.innerHTML="MEMERIKSA USER ID...";
         loading.style.display="none";
 
     };
