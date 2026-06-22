@@ -113,65 +113,61 @@ loading.style.display="flex";
 
      if(data.status==="used"){
 
-   loading.innerHTML=`
-<div style="
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:15px;
-">
+    document.getElementById("loadingContent").innerHTML=`
+        <div style="
+            width:80px;
+            height:80px;
+            border-radius:50%;
+            border:3px solid #ff3333;
 
-<div style="
-width:80px;
-height:80px;
-border-radius:50%;
-border:3px solid #ff3333;
-display:flex;
-align-items:center;
-justify-content:center;
-color:#ff3333;
-font-size:46px;
-font-weight:900;
-box-shadow:0 0 10px red,0 0 25px red;
-">
-✕
-</div>
+            display:flex;
+            align-items:center;
+            justify-content:center;
 
-<div style="
-color:#fff;
-font-size:18px;
-font-weight:700;
-font-family:'Orbitron',sans-serif;
-">
-ID INI SUDAH CLAIM
-</div>
+            margin:auto;
 
-<button id="okClaimBtn"
-style="
-width:120px;
-height:45px;
-border:none;
-border-radius:10px;
-background:#ff3333;
-color:#fff;
-font-weight:700;
-cursor:pointer;
-">
-OK
-</button>
+            color:#ff3333;
+            font-size:46px;
+            font-weight:900;
 
-</div>
-`;
+            box-shadow:
+                0 0 10px red,
+                0 0 25px red;
+        ">
+            ✕
+        </div>
+
+        <div style="
+            margin-top:15px;
+            font-size:18px;
+            font-weight:700;
+            font-family:'Orbitron',sans-serif;
+        ">
+            ID INI SUDAH CLAIM
+        </div>
+
+        <button id="okClaimBtn"
+            style="
+                margin-top:15px;
+                width:120px;
+                height:45px;
+                border:none;
+                border-radius:10px;
+                background:#ff3333;
+                color:#fff;
+                font-weight:700;
+            ">
+            OK
+        </button>
+    `;
 
     document.getElementById("okClaimBtn").onclick=()=>{
 
-        loading.innerHTML=`
+        document.getElementById("loadingContent").innerHTML=`
             <div class="loader"></div>
-            <div>MEMERIKSA USER ID...</div>
+            <div id="loadingText">
+                MEMERIKSA USER ID...
+            </div>
         `;
 
         loading.style.display="none";
