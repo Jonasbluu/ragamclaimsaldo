@@ -112,7 +112,7 @@ loading.style.display = "flex";
 
     loading.style.display="none";
 
-    pop("CLAIM HANYA 1 KALI KAKAK 😛");
+    pop("USERID INI SUDAH CLAIM KAKAK");
 
     spinBtn.disabled=false;
     spinBtn.innerHTML="PUTAR SEKARANG";
