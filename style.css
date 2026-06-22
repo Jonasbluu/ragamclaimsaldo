@@ -300,6 +300,7 @@ visibility:visible;
 
 .popup.show .popbox{
 transform:scale(1) translateY(0);
+animation:popupBounce .5s ease;
 }
 
 .popbox{
@@ -372,7 +373,7 @@ left:150%;
 
 font-family:'Orbitron',sans-serif;
 
-font-size:26px;
+font-size:clamp(20px,5vw,26px);
 font-weight:900;
 
 line-height:1.5;
@@ -454,6 +455,21 @@ background-position:300%;
 }
 }
 
+@keyframes popupBounce{
+
+0%{
+transform:scale(.7) translateY(30px);
+}
+
+60%{
+transform:scale(1.05) translateY(-5px);
+}
+
+100%{
+transform:scale(1) translateY(0);
+}
+
+}
 .note{
     text-align:center;
     color:#ccc;
