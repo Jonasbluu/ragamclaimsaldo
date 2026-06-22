@@ -221,7 +221,7 @@ let win=Math.floor(Math.random()*hadiah.length);
 </div>
 
 <div style="
-    font-size:100px;
+    font-size:35px;
     font-weight:900;
     line-height:1;
 
