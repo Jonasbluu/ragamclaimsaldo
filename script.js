@@ -52,8 +52,15 @@ ctx.fill();
 draw();
 
 function pop(t){
-msg.innerHTML=t;
+
+msg.innerText=t;
+
+popup.classList.remove("show");
+
+setTimeout(()=>{
 popup.classList.add("show");
+},10);
+
 }
 
 function resetForm(){
