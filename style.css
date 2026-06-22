@@ -299,7 +299,30 @@ visibility:visible;
 }
 
 .popup.show .popbox{
-animation:popupWin .75s cubic-bezier(.17,.84,.44,1) forwards;
+animation: popupBounce .55s cubic-bezier(.18,.89,.32,1.28);
+transform:scale(1) translateY(0);
+}
+
+@keyframes popupBounce{
+
+0%{
+transform:scale(.6) translateY(40px);
+opacity:0;
+}
+
+60%{
+transform:scale(1.06) translateY(-8px);
+opacity:1;
+}
+
+80%{
+transform:scale(.98);
+}
+
+100%{
+transform:scale(1);
+}
+
 }
 
 .popbox{
@@ -370,7 +393,10 @@ left:150%;
 }
 
 #msg{
-
+letter-spacing:1px;
+text-shadow:
+0 0 10px rgba(255,215,0,.6),
+0 0 20px rgba(255,215,0,.4);
 font-family:'Orbitron',sans-serif;
 
 font-size:clamp(20px,5vw,26px);
