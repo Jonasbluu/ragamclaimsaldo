@@ -1,343 +1,210 @@
-const hadiah=["RP. 50.000","RP. 100.000","RP. 150.000","RP. 200.000","RP. 250.000","RP. 300.000","RP. 400.000","RP. 500.000"];
+/* ========================= */
+/* CONFIG */
+/* ========================= */
 
-const warna=[
-"#ffd700",
-"#ff7b00",
-"#00d9ff",
-"#8b2cff",
-"#ffd700",
-"#ff7b00",
-"#00d9ff",
-"#8b2cff"
+const WEBAPP_URL =
+"ISI_URL_WEBAPP_APPS_SCRIPT_DISINI";
+
+/* ========================= */
+/* ELEMEN */
+/* ========================= */
+
+const envelope =
+document.getElementById("envelope");
+
+const popup =
+document.getElementById("popup");
+
+const reward =
+document.getElementById("reward");
+
+const claimBtn =
+document.getElementById("claimBtn");
+
+const usedPopup =
+document.getElementById("usedPopup");
+
+/* ========================= */
+/* USER ID DARI URL */
+/* ========================= */
+
+const userid =
+new URLSearchParams(
+window.location.search
+).get("id");
+
+/* ========================= */
+/* HADIAH */
+/* ========================= */
+
+const hadiahList = [
+
+"Rp18.000",
+"Rp28.000",
+"Rp38.000",
+"Rp58.000",
+"Rp88.000",
+"Rp188.000"
+
 ];
 
-const API_URL = "https://script.google.com/macros/s/AKfycbw99-Zhf8ANVGI5E7cOMQZfCWK4lpYxwYC2-QaHXUjzD2Aw3tfeAfjCEoGqoDx58tje/exec";
+let hadiahTerpilih = "";
+let userSudahClaim = false;
 
-const cv=document.getElementById("wheel");
-const ctx=cv.getContext("2d");
-const loading=document.getElementById("loading");
+/* ========================= */
+/* CEK USER */
+/* ========================= */
 
-function draw(){
-let c=200,r=190;
+async function checkUser(){
 
-for(let i=0;i<hadiah.length;i++){
+try{
 
-let a=i*2*Math.PI/hadiah.length;
-let b=(i+1)*2*Math.PI/hadiah.length;
+const res = await fetch(
+WEBAPP_URL,
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
 
-ctx.beginPath();
-ctx.moveTo(c,c);
-ctx.arc(c,c,r,a,b);
-ctx.fillStyle=warna[i];
-ctx.fill();
-
-ctx.save();
-ctx.translate(c,c);
-ctx.rotate(a+(b-a)/2);
-
-ctx.fillStyle="#fff";
-ctx.font="bold 20px Arial";
-ctx.textAlign="center";
-ctx.fillText(hadiah[i],130,5);
-
-ctx.restore();
-}
-
-ctx.beginPath();
-ctx.arc(c,c,18,0,Math.PI*2);
-ctx.fillStyle="gold";
-ctx.fill();
-}
-
-draw();
-
-function pop(t){
-
-msg.innerHTML = t;
-
-popup.classList.remove("show");
-
-setTimeout(()=>{
-popup.classList.add("show");
-},10);
-
-}
-
-function resetForm(){
-
-    userid.value = "";
-
-    spinBtn.innerHTML = "PUTAR SEKARANG";
-
-    spinBtn.disabled = false;
-
-    spinBtn.onclick = spinWheel;
-
-    rot = 0;
-
-    cv.style.transform = "rotate(0deg)";
-}
-
-let rot=0;
-
-spinBtn.onclick = spinWheel;
-
-async function spinWheel(){
-
-    let id = userid.value.trim();
-
-if(!id){
-    pop("ISI USER ID DAHULU");
-    return;
-}
-
-spinBtn.disabled = true;
-spinBtn.innerHTML = "MEMERIKSA...";
-loading.style.display = "flex";
-    
-
-    spinBtn.disabled = true;
-
-    fetch(API_URL,{
-        method:"POST",
-        body:JSON.stringify({
-            userid:id,
-            action:"check"
-        })
-    })
-    .then(r=>r.json())
-    .then(data=>{
-
-       if(data.status==="used"){
-
-loading.innerHTML=`
-    <div style="
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        gap:15px;
-    ">
-
-        <div style="
-            width:80px;
-            height:80px;
-            border-radius:50%;
-            border:3px solid #ff3333;
-
-            display:flex;
-            align-items:center;
-            justify-content:center;
-
-            color:#ff3333;
-            font-size:48px;
-            font-weight:bold;
-
-            box-shadow:
-                0 0 10px #ff0000,
-                0 0 25px #ff0000;
-        ">
-            ✖
-        </div>
-
-        <div style="
-            color:#fff;
-            font-size:18px;
-            font-weight:700;
-            text-align:center;
-        ">
-            ID SUDAH PERNAH CLAIM
-        </div>
-
-        <button id="okClaimBtn"
-            style="
-                background:#ff3333;
-                color:#fff;
-                border:none;
-                border-radius:8px;
-                padding:10px 30px;
-                font-weight:700;
-                cursor:pointer;
-            ">
-            OK
-        </button>
-
-    </div>
-`;
-
-spinBtn.disabled=false;
-spinBtn.innerHTML="PUTAR SEKARANG";
-
-document.getElementById("okClaimBtn").onclick=()=>{
-
-    loading.innerHTML=`
-        <div class="loader"></div>
-        <div>MEMERIKSA USER ID...</div>
-    `;
-
-    loading.style.display="none";
-};
-
-return;
-
-}
-
-loading.style.display="none";
-spinBtn.innerHTML = "MEMUTAR...";
-
-// BARU SPIN
-let win=Math.floor(Math.random()*hadiah.length);
-
-        const sectorSize=360/hadiah.length;
-        let angle=(win*sectorSize)+(sectorSize/2);
-
-        rot+=3600-angle-90;
-
-        cv.style.transform=`rotate(${rot}deg)`;
-
-        setTimeout(()=>{
-
-            let hasil=hadiah[win];
-
-            spinBtn.innerHTML="CLAIM "+hasil;
-
-            pop(`
-<div style="text-align:center;">
-
-   <div style="
-    font-size:24px;
-    font-weight:900;
-    color:#fff;
-    letter-spacing:2px;
-    margin-bottom:10px;
-">
-         <div style="
-    font-size:15px;
-    color:#bdbdbd;
-    letter-spacing:2px;
-    margin-bottom:15px;
-">
-    BONUS SALDO
-</div>
-
-<div style="
-    font-size:35px;
-    font-weight:900;
-    line-height:1;
-
-    color:#ffe082;
-
-    margin:10px 0 15px;
-
-    text-shadow:
-        0 0 8px rgba(255,215,0,.18);
-">
-    ${hasil}
-</div>
-
-</div>
-`);
-
-            fetch(API_URL,{
-    method:"POST",
-    body:JSON.stringify({
-        userid:id,
-        hadiah:hasil,
-        action:"claim"
-    })
-})
-.then(r => r.json())
-.then(data => {
-
-    console.log("CLAIM:", data);
-
-    if(data.status !== "saved"){
-        pop("GAGAL MENYIMPAN DATA");
-    }
+userid:userid,
+action:"check"
 
 })
-.catch(err => {
-
-    console.error(err);
-
-    pop("GAGAL MENYIMPAN DATA");
-
-});
-
-spinBtn.disabled=false;
-
-spinBtn.onclick=()=>{
-    window.location.href="https://ragam4d03.com/";
-};
-        },6000);
-
-    })
- .catch(err=>{
-
-    console.error(err);
-
-    loading.style.display="none";
-
-    pop("GAGAL TERHUBUNG KE SERVER");
-
-    spinBtn.disabled=false;
-    spinBtn.innerHTML="PUTAR SEKARANG";
-
-});
-
 }
-
-const namaRandom=[
-"RA***","SL***","GA**","VIP***",
-"JACKP****","MAXW****","BOS***",
-"RAJ***","SULT***","HO***",
-"CUAN***","BIGWI***","DEW***",
-"LION***","KONTOLKECE***","SENOP***",
-"udacan***","peng***","Ondo***",
-"salamm***","Xsime***","kopra***",
-"iko***","brovipx***","Cucujeu***",
-"gacor***","heba***","Davidp***","MIMEK***",
-"BIJIMEL***","GARUKPE***","HAMBATUH**",
-"RAGAMGAC***","SEMPAKBO***","JP100JT***",
-];
-
-const hadiahRandom=[
-"Rp 20.000",
-"Rp 35.000",
-"Rp 100.000",
-"Rp 50.000",
-"Rp 25.0000",
-"Rp 45.0000",
-"Rp 30.0000",
-];
-
-function randomClaim(){
-
-const list=document.getElementById("recentList");
-
-let nama=namaRandom[Math.floor(Math.random()*namaRandom.length)];
-let hadiah=hadiahRandom[Math.floor(Math.random()*hadiahRandom.length)];
-
-const item=document.createElement("div");
-
-item.className="recent-item";
-
-item.innerHTML=`
-<span>${nama}</span>
-<span>${hadiah}</span>
-`;
-
-list.prepend(item);
-
-if(list.children.length>8){
-list.removeChild(list.lastElementChild);
-}
-}
-
-for(let i=0;i<6;i++){
-randomClaim();
-}
-
-setInterval(randomClaim,
-Math.floor(Math.random()*1000)+2000
 );
+
+const data = await res.json();
+
+if(data.status === "used"){
+
+userSudahClaim = true;
+
+usedPopup.style.display = "flex";
+
+envelope.style.opacity = ".5";
+envelope.style.pointerEvents = "none";
+
+}
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
+
+/* ========================= */
+/* RANDOM HADIAH */
+/* ========================= */
+
+function randomHadiah(){
+
+const index =
+Math.floor(
+Math.random() *
+hadiahList.length
+);
+
+return hadiahList[index];
+
+}
+
+/* ========================= */
+/* BUKA SURAT */
+/* ========================= */
+
+envelope.addEventListener(
+"click",
+()=>{
+
+if(userSudahClaim) return;
+
+hadiahTerpilih =
+randomHadiah();
+
+reward.innerText =
+hadiahTerpilih;
+
+popup.classList.add("show");
+
+/* nanti confetti disini */
+
+}
+);
+
+/* ========================= */
+/* CLAIM */
+/* ========================= */
+
+claimBtn.addEventListener(
+"click",
+async ()=>{
+
+claimBtn.disabled = true;
+
+try{
+
+const res = await fetch(
+WEBAPP_URL,
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+
+userid:userid,
+hadiah:hadiahTerpilih,
+action:"save"
+
+})
+}
+);
+
+const data = await res.json();
+
+if(data.status === "saved"){
+
+alert(
+"SELAMAT! HADIAH BERHASIL DIKLAIM"
+);
+
+userSudahClaim = true;
+
+claimBtn.innerText =
+"BERHASIL DIKLAIM";
+
+}
+
+else if(
+data.status === "used"
+){
+
+alert(
+"USER SUDAH PERNAH CLAIM"
+);
+
+}
+
+}
+catch(err){
+
+console.log(err);
+
+alert(
+"Gagal menghubungi server"
+);
+
+}
+
+}
+);
+
+/* ========================= */
+/* START */
+/* ========================= */
+
+checkUser();
