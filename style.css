@@ -1,405 +1,248 @@
-/* ========================= */
-/* RESET */
-/* ========================= */
+const hadiah=["25.000","50.000","100.000","200.000","300.000","400.000","500.000","1.000.000"];
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+const warna=[
+"#ffd700",
+"#ff7b00",
+"#00d9ff",
+"#8b2cff",
+"#ffd700",
+"#ff7b00",
+"#00d9ff",
+"#8b2cff"
+];
+
+const API_URL = "https://script.google.com/macros/s/AKfycbw99-Zhf8ANVGI5E7cOMQZfCWK4lpYxwYC2-QaHXUjzD2Aw3tfeAfjCEoGqoDx58tje/exec";
+
+const cv=document.getElementById("wheel");
+const ctx=cv.getContext("2d");
+const loading=document.getElementById("loading");
+
+function draw(){
+let c=200,r=190;
+
+for(let i=0;i<hadiah.length;i++){
+
+let a=i*2*Math.PI/hadiah.length;
+let b=(i+1)*2*Math.PI/hadiah.length;
+
+ctx.beginPath();
+ctx.moveTo(c,c);
+ctx.arc(c,c,r,a,b);
+ctx.fillStyle=warna[i];
+ctx.fill();
+
+ctx.save();
+ctx.translate(c,c);
+ctx.rotate(a+(b-a)/2);
+
+ctx.fillStyle="#fff";
+ctx.font="bold 22px Arial";
+ctx.textAlign="center";
+ctx.fillText(hadiah[i],130,5);
+
+ctx.restore();
 }
 
-/* ========================= */
-/* BODY */
-/* ========================= */
-
-body{
-    min-height:100vh;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    background:
-    radial-gradient(
-        circle at center,
-        #2b1a00,
-        #120d00
-    );
-
-    font-family:
-    Arial,
-    sans-serif;
-
-    overflow:hidden;
+ctx.beginPath();
+ctx.arc(c,c,18,0,Math.PI*2);
+ctx.fillStyle="gold";
+ctx.fill();
 }
 
-/* ========================= */
-/* CONTAINER */
-/* ========================= */
+draw();
 
-.container{
-    text-align:center;
-    padding:20px;
+function pop(t){
+
+msg.innerHTML = t;
+
+popup.classList.remove("show");
+
+setTimeout(()=>{
+popup.classList.add("show");
+},10);
+
 }
 
-/* ========================= */
-/* TITLE */
-/* ========================= */
+function resetForm(){
 
-.title{
+    userid.value = "";
 
-    color:#ffd700;
+    spinBtn.innerHTML = "PUTAR SEKARANG";
 
-    font-size:32px;
+    spinBtn.disabled = false;
 
-    margin-bottom:30px;
+    spinBtn.onclick = spinWheel;
 
-    text-shadow:
-    0 0 10px rgba(255,215,0,.4);
+    rot = 0;
+
+    cv.style.transform = "rotate(0deg)";
 }
 
-/* ========================= */
-/* AMPLOP */
-/* ========================= */
+let rot=0;
 
-.envelope{
-    position:relative;
+spinBtn.onclick = spinWheel;
 
-    width:220px;
-    height:160px;
+async function spinWheel(){
 
-    margin:auto;
+    let id = userid.value.trim();
 
-    cursor:pointer;
-
-    animation:
-    breathe 2.5s ease-in-out infinite;
+if(!id){
+    pop("ISI USER ID DAHULU");
+    return;
 }
 
-/* ========================= */
-/* GLOW */
-/* ========================= */
+spinBtn.disabled = true;
+spinBtn.innerHTML = "MEMERIKSA...";
+loading.style.display = "flex";
+    
 
-.envelope-glow{
+    spinBtn.disabled = true;
 
-    position:absolute;
+    fetch(API_URL,{
+        method:"POST",
+        body:JSON.stringify({
+            userid:id,
+            action:"check"
+        })
+    })
+    .then(r=>r.json())
+    .then(data=>{
 
-    inset:-15px;
+       if(data.status==="used"){
 
-    border-radius:20px;
+    loading.style.display="none";
 
-    background:
-    radial-gradient(
-        circle,
-        rgba(255,215,0,.15),
-        transparent 70%
-    );
+    pop("CLAIM HANYA 1 KALI KAKAK 😛");
 
-    filter:blur(15px);
+    spinBtn.disabled=false;
+    spinBtn.innerHTML="PUTAR SEKARANG";
 
-    z-index:0;
+    return;
+
 }
 
-/* ========================= */
-/* BADAN AMPLOP */
-/* ========================= */
+loading.style.display="none";
+spinBtn.innerHTML = "MEMUTAR...";
 
-.envelope-body{
+// BARU SPIN
+let win=Math.floor(Math.random()*hadiah.length);
 
-    position:relative;
+        const sectorSize=360/hadiah.length;
+        let angle=(win*sectorSize)+(sectorSize/2);
 
-    width:100%;
-    height:100%;
+        rot+=3600-angle-90;
 
-    border-radius:18px;
+        cv.style.transform=`rotate(${rot}deg)`;
 
-    background:
-    linear-gradient(
-        145deg,
-        #ffe27a,
-        #ffd700,
-        #d4a300
-    );
+        setTimeout(()=>{
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+            let hasil=hadiah[win];
 
-    font-size:70px;
+            spinBtn.innerHTML="CLAIM "+hasil;
 
-    box-shadow:
-    0 8px 25px rgba(0,0,0,.25);
+            pop("🏆<br>SELAMAT!<br><br>ANDA MENDAPATKAN<br><span style='font-size:42px;color:#ffd700'>"+hasil+"</span>");
 
-    z-index:1;
-}
+            fetch(API_URL,{
+    method:"POST",
+    body:JSON.stringify({
+        userid:id,
+        hadiah:hasil,
+        action:"claim"
+    })
+})
+.then(r => r.json())
+.then(data => {
 
-/* ========================= */
-/* NAFAS */
-/* ========================= */
+    console.log("CLAIM:", data);
 
-@keyframes breathe{
-
-    0%{
-        transform:scale(1);
+    if(data.status !== "saved"){
+        pop("GAGAL MENYIMPAN DATA");
     }
 
-    50%{
-        transform:scale(1.03);
-    }
+})
+.catch(err => {
 
-    100%{
-        transform:scale(1);
-    }
+    console.error(err);
+
+    pop("GAGAL MENYIMPAN DATA");
+
+});
+
+spinBtn.disabled=false;
+
+spinBtn.onclick=()=>{
+    window.location.href="https://ragam4d03.com/";
+};
+        },6000);
+
+    })
+ .catch(err=>{
+
+    console.error(err);
+
+    loading.style.display="none";
+
+    pop("GAGAL TERHUBUNG KE SERVER");
+
+    spinBtn.disabled=false;
+    spinBtn.innerHTML="PUTAR SEKARANG";
+
+});
 
 }
 
-/* ========================= */
-/* PETUNJUK */
-/* ========================= */
+const namaRandom=[
+"RA***","SL***","GA**","VIP***",
+"JACKP****","MAXW****","BOS***",
+"RAJ***","SULT***","HO***",
+"CUAN***","BIGWI***","DEW***",
+"LION***","KONTOLKECE***","SENOP***",
+"udacan***","peng***","Ondo***",
+"salamm***","Xsime***","kopra***",
+"iko***","brovipx***","Cucujeu***",
+"gacor***","heba***","Davidp***","MIMEK***",
+"BIJIMEL***","GARUKPE***","HAMBATUH**",
+"RAGAMGAC***","SEMPAKBO***","JP100JT***",
+];
 
-.click-text{
+const hadiahRandom=[
+"Rp 25.000",
+"Rp 50.000",
+"Rp 100.000",
+"Rp 200.000",
+"Rp 300.0000",
+"Rp 400.0000",
+"Rp 500.0000",
+"Rp 1.000.000",
+];
 
-    margin-top:25px;
+function randomClaim(){
 
-    color:#fff;
+const list=document.getElementById("recentList");
 
-    opacity:.8;
+let nama=namaRandom[Math.floor(Math.random()*namaRandom.length)];
+let hadiah=hadiahRandom[Math.floor(Math.random()*hadiahRandom.length)];
 
-    font-size:15px;
+const item=document.createElement("div");
+
+item.className="recent-item";
+
+item.innerHTML=`
+<span>${nama}</span>
+<span>${hadiah}</span>
+`;
+
+list.prepend(item);
+
+if(list.children.length>8){
+list.removeChild(list.lastElementChild);
+}
 }
 
-/* ========================= */
-/* POPUP */
-/* ========================= */
-
-.popup{
-
-    position:fixed;
-
-    inset:0;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    background:
-    rgba(0,0,0,.65);
-
-    opacity:0;
-    visibility:hidden;
-
-    transition:.3s;
-
-    z-index:999;
+for(let i=0;i<6;i++){
+randomClaim();
 }
 
-.popup.show{
-
-    opacity:1;
-    visibility:visible;
-}
-
-/* ========================= */
-/* KARTU SURAT */
-/* ========================= */
-
-.popup-card{
-
-    width:90%;
-    max-width:420px;
-
-    background:#fff;
-
-    border-radius:20px;
-
-    padding:30px;
-
-    text-align:center;
-
-    animation:
-    popupIn .35s ease;
-
-    box-shadow:
-    0 20px 50px rgba(0,0,0,.3);
-}
-
-/* ========================= */
-/* HEADER */
-/* ========================= */
-
-.popup-header{
-
-    font-size:28px;
-
-    font-weight:bold;
-
-    color:#d4a300;
-
-    margin-bottom:15px;
-}
-
-/* ========================= */
-/* DESKRIPSI */
-/* ========================= */
-
-.popup-text{
-
-    color:#444;
-
-    margin-bottom:20px;
-
-    line-height:1.5;
-}
-
-/* ========================= */
-/* HADIAH */
-/* ========================= */
-
-.reward{
-
-    font-size:38px;
-
-    font-weight:bold;
-
-    color:#ff9800;
-
-    margin-bottom:25px;
-
-    text-shadow:
-    0 0 10px rgba(255,152,0,.25);
-}
-
-/* ========================= */
-/* CLAIM */
-/* ========================= */
-
-.claim-btn{
-
-    border:none;
-
-    width:100%;
-
-    padding:15px;
-
-    border-radius:50px;
-
-    cursor:pointer;
-
-    font-size:16px;
-    font-weight:bold;
-
-    color:#000;
-
-    background:
-    linear-gradient(
-        90deg,
-        gold,
-        orange
-    );
-
-    box-shadow:
-    0 0 20px rgba(255,215,0,.4);
-
-    transition:.2s;
-}
-
-.claim-btn:hover{
-
-    transform:translateY(-2px);
-}
-
-/* ========================= */
-/* USED POPUP */
-/* ========================= */
-
-.used-popup{
-
-    position:fixed;
-
-    inset:0;
-
-    display:none;
-    justify-content:center;
-    align-items:center;
-
-    background:
-    rgba(0,0,0,.7);
-
-    z-index:1000;
-}
-
-.used-card{
-
-    width:90%;
-    max-width:400px;
-
-    background:#fff;
-
-    border-radius:18px;
-
-    padding:30px;
-
-    text-align:center;
-}
-
-.used-card h2{
-
-    color:#ff9800;
-
-    margin-bottom:10px;
-}
-
-/* ========================= */
-/* ANIMASI POPUP */
-/* ========================= */
-
-@keyframes popupIn{
-
-    from{
-
-        opacity:0;
-
-        transform:
-        scale(.85);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:
-        scale(1);
-
-    }
-
-}
-
-/* ========================= */
-/* MOBILE */
-/* ========================= */
-
-@media(max-width:480px){
-
-    .title{
-
-        font-size:24px;
-    }
-
-    .reward{
-
-        font-size:30px;
-    }
-
-    .envelope{
-
-        width:180px;
-        height:130px;
-    }
-
-    .envelope-body{
-
-        font-size:58px;
-    }
-
-}
+setInterval(randomClaim,
+Math.floor(Math.random()*1000)+2000
+);
