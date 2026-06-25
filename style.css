@@ -589,24 +589,18 @@ transform:scale(1) translateY(0);
     }
 }    
 .loading{
-position:fixed;
-inset:0;
-
-background:rgba(0,0,0,.35);
-backdrop-filter:blur(10px);
-
-display:none;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-
-text-align:center;
-
-color:#fff;
-
-transition:.3s ease;
-
-z-index:99999;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color:#fff;
+    z-index:99999;
 }
 
 .loader{
@@ -617,24 +611,6 @@ z-index:99999;
     border-radius:50%;
     animation:spinloading 1s linear infinite;
     margin-bottom:15px;
-}
-
-#loadingText{
-
-margin-top:15px;
-
-font-family:'Orbitron',sans-serif;
-
-font-size:22px;
-
-font-weight:800;
-
-letter-spacing:1px;
-
-text-shadow:
-0 0 15px gold;
-
-animation:pulseLoading 1s infinite;
 }
 
 @keyframes spinloading{
@@ -704,140 +680,4 @@ animation:pulseLoading 1s infinite;
     input{
         width:100%;
     }
-}
-
-@keyframes pulseLoading{
-
-50%{
-transform:scale(1.05);
-opacity:.7;
-}
-
-}
-
-.loading{
-position:fixed;
-inset:0;
-
-background:rgba(0,0,0,.35);
-backdrop-filter:blur(10px);
-
-display:none;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-
-text-align:center;
-
-color:#fff;
-
-transition:.3s ease;
-
-z-index:99999;
-}
-
-.loader{
-    width:60px;
-    height:60px;
-    border:6px solid rgba(255,255,255,.2);
-    border-top:6px solid gold;
-    border-radius:50%;
-    animation:spinloading 1s linear infinite;
-    margin-bottom:15px;
-}
-
-#loadingText{
-
-margin-top:15px;
-
-font-family:'Orbitron',sans-serif;
-
-font-size:22px;
-
-font-weight:800;
-
-letter-spacing:1px;
-
-text-shadow:
-0 0 15px gold;
-
-animation:pulseLoading 1s infinite;
-}
-
-@keyframes spinloading{
-    100%{
-        transform:rotate(360deg);
-    }
-}
-/* TABLET */
-@media (max-width:768px){
-
-    .wheel-box{
-        width:340px;
-        height:340px;
-    }
-
-    canvas{
-        max-width:320px;
-    }
-
-    .pointer{
-        top:72px;
-    }
-
-    #spinBtn{
-        font-size:22px;
-        height:64px;
-    }
-}
-
-/* HP */
-@media (max-width:480px){
-
-    .wheel-box{
-        width:280px;
-        height:280px;
-    }
-
-    canvas{
-        max-width:260px;
-    }
-
-    .pointer{
-        top:65px;
-        border-left:16px solid transparent;
-        border-right:16px solid transparent;
-        border-top:28px solid gold;
-    }
-
-    .label{
-        font-size:16px;
-    }
-
-    #spinBtn{
-        height:58px;
-        font-size:18px;
-    }
-
-    .row{
-        flex-direction:column;
-    }
-
-    .btn2{
-        width:100%;
-        height:50px;
-    }
-
-    input{
-        width:100%;
-    }
-}
-
-@keyframes pulseLoading{
-
-50%{
-transform:scale(1.05);
-opacity:.7;
-}
-
 }
