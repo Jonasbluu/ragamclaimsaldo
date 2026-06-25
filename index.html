@@ -1,67 +1,100 @@
-
 <!DOCTYPE html>
 <html lang="id">
-<link href="https://i.postimg.cc/6pf9p7Mm/image.png" rel="icon"/>
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RAGAM4D</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RAGAMAMPLOP</title>
 
 <link rel="stylesheet" href="style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link href="https://i.postimg.cc/6pf9p7Mm/image.png" rel="icon"/>
-
 </head>
+
 <body>
 
-<div class="wrap">
+<div class="container">
 
-<div class="logo">
-<img src="https://i.ibb.co/pvWVSK4Y/Chat-GPT-Image-Jun-20-2026-02-18-21-AM.png">
-<div class="bigtitle">CLAIM SALDONYA SEKARANG JUGA !</div>
+    <!-- JUDUL -->
+    <h1 class="title">
+        Anda Mendapatkan Surat Hadiah
+    </h1>
 
-<div class="card">
-<div class="label">MASUKKAN USERID</div>
+    <!-- AMPLOP -->
+    <div class="envelope" id="envelope">
 
-<div class="row">
-<input id="userid" placeholder="CONTOH: RAGAM01">
-<button type="button" class="btn2" onclick="resetForm()">HAPUS</button>
-</div>
+        <div class="envelope-glow"></div>
 
-</div>
+        <div class="envelope-body">
 
-<div class="card wheel-card">
+            ✉️
 
-<div class="label">FREE SPIN WHEEL</div>
+        </div>
 
-<div class="pointer"></div>
+    </div>
 
-<div class="wheel-box">
-<canvas id="wheel" width="400" height="400"></canvas>
-</div>
-
-<button id="spinBtn">PUTAR SEKARANG</button>
+    <!-- PETUNJUK -->
+    <p class="click-text">
+        Klik amplop untuk membuka surat hadiah
+    </p>
 
 </div>
-</div>
 
-<div class="card recent-card">
-<div class="label">RECENT CLAIM</div>
-<div class="recent-list" id="recentList"></div>
-</div>
-
+<!-- POPUP SURAT -->
 <div class="popup" id="popup">
-<div class="popbox">
-<div id="msg"></div>
-<button onclick="popup.classList.remove('show')">OK</button>
-</div>
+
+    <div class="popup-card">
+
+        <div class="popup-header">
+
+            🎉 SELAMAT 🎉
+
+        </div>
+
+        <div class="popup-text">
+
+            Anda mendapatkan hadiah saldo sebesar
+
+        </div>
+
+        <div class="reward" id="reward">
+
+            Rp0
+
+        </div>
+
+        <button
+            class="claim-btn"
+            id="claimBtn">
+
+            CLAIM HADIAH
+
+        </button>
+
+    </div>
+
 </div>
 
-  <div id="loading" class="loading">
-    <div class="loader"></div>
-    <div>MEMERIKSA USER ID...</div>
+<!-- POPUP SUDAH CLAIM -->
+<div class="used-popup" id="usedPopup">
+
+    <div class="used-card">
+
+        <h2>
+            SURAT SUDAH DIGUNAKAN
+        </h2>
+
+        <p>
+            User ID ini sudah pernah mengambil hadiah.
+        </p>
+
+    </div>
+
 </div>
+
+<!-- TEMPAT CONFETTI -->
+<div id="confetti-container"></div>
 
 <script src="script.js"></script>
 
