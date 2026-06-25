@@ -53,13 +53,19 @@ draw();
 
 function pop(t){
 
-msg.innerHTML = t;
+    msg.innerHTML=t;
 
-popup.classList.remove("show");
+    popup.classList.remove("show");
 
-setTimeout(()=>{
-popup.classList.add("show");
-},10);
+    setTimeout(()=>{
+        popup.classList.add("show");
+    },10);
+
+}
+
+function closePopup(){
+
+    popup.classList.remove("show");
 
 }
 
@@ -112,7 +118,7 @@ loading.style.display = "flex";
 
     loading.style.display="none";
 
-    pop("CLAIM HANYA 1 KALI KAKAK 😛");
+   pop("USER ID SUDAH CLAIM !");
 
     spinBtn.disabled=false;
     spinBtn.innerHTML="PUTAR SEKARANG";
