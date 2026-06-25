@@ -1,4 +1,4 @@
-const hadiah=["25.000","100.000","200.000","300.000","400.000","500.000","1.000.000","50.000"];
+const hadiah=["20.000","25.000","30.000","35.000","40.000","45.000","50.000","100.000"];
 
 const warna=[
 "#ffd700",
@@ -93,7 +93,10 @@ if(!id){
 
 spinBtn.disabled = true;
 spinBtn.innerHTML = "MEMERIKSA...";
-loading.style.display = "flex";
+
+loading.className="";
+loading.innerHTML="MEMERIKSA USER ID...";
+loading.style.display="flex";
     
 
     spinBtn.disabled = true;
@@ -108,17 +111,76 @@ loading.style.display = "flex";
     .then(r=>r.json())
     .then(data=>{
 
-       if(data.status==="used"){
+     if(data.status==="used"){
 
-    loading.style.display="none";
+   loading.innerHTML=`
+<div style="
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:15px;
+">
 
-    pop("CLAIM HANYA 1 KALI KAKAK 😛");
+<div style="
+width:80px;
+height:80px;
+border-radius:50%;
+border:3px solid #ff3333;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#ff3333;
+font-size:46px;
+font-weight:900;
+box-shadow:0 0 10px red,0 0 25px red;
+">
+✕
+</div>
+
+<div style="
+color:#fff;
+font-size:18px;
+font-weight:700;
+font-family:'Orbitron',sans-serif;
+">
+ID INI SUDAH CLAIM
+</div>
+
+<button id="okClaimBtn"
+style="
+width:120px;
+height:45px;
+border:none;
+border-radius:10px;
+background:#ff3333;
+color:#fff;
+font-weight:700;
+cursor:pointer;
+">
+OK
+</button>
+
+</div>
+`;
+
+    document.getElementById("okClaimBtn").onclick=()=>{
+
+        loading.innerHTML=`
+            <div class="loader"></div>
+            <div>MEMERIKSA USER ID...</div>
+        `;
+
+        loading.style.display="none";
+    };
 
     spinBtn.disabled=false;
     spinBtn.innerHTML="PUTAR SEKARANG";
 
     return;
-
 }
 
 loading.style.display="none";
@@ -206,14 +268,13 @@ const namaRandom=[
 ];
 
 const hadiahRandom=[
-"Rp 25.000",
+"Rp 20.000",
+"Rp 35.000",
 "Rp 100.000",
-"Rp 200.000",
-"Rp 300.000",
-"Rp 400.0000",
-"Rp 500.0000",
-"Rp 1.000.0000",
-"Rp 50.0000",
+"Rp 50.000",
+"Rp 25.0000",
+"Rp 45.0000",
+"Rp 30.0000",
 ];
 
 function randomClaim(){
