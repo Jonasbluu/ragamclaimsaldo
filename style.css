@@ -604,3 +604,54 @@ opacity:1;
         width:100%;
     }
 }
+
+/* ===========================
+   POPUP HADIAH
+=========================== */
+
+.popbox.win-popup{
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(30,30,30,.95),
+        rgba(10,10,10,.98)
+    );
+
+    border:2px solid #ffd700;
+
+    box-shadow:
+        0 0 12px rgba(255,215,0,.45),
+        0 0 28px rgba(255,215,0,.20),
+        inset 0 0 18px rgba(255,255,255,.04);
+
+}
+
+.popbox.win-popup button{
+
+    color:#000;
+
+    background:
+    linear-gradient(
+        180deg,
+        #fff7a0,
+        #ffd700,
+        #ffb300
+    );
+
+    box-shadow:
+        0 0 10px rgba(255,215,0,.45);
+
+}
+
+.popbox.win-popup button:hover{
+
+    background:
+    linear-gradient(
+        180deg,
+        #fff8b8,
+        #ffe04d,
+        #ffbf3f
+    );
+
+}
