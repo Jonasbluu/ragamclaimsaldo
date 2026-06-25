@@ -52,14 +52,33 @@ ctx.fill();
 draw();
 
 function pop(t){
+function loadingSuccess(){
 
-msg.innerHTML = t;
+loading.innerHTML=`
 
-popup.classList.remove("show");
+<div class="loading-icon loading-success">
+✔
+</div>
+
+<div id="loadingText">
+USER ID VALID
+</div>
+
+`;
+
+}
+
+function loadingError(){
+
+loadingError();
 
 setTimeout(()=>{
-popup.classList.add("show");
-},10);
+
+loading.style.display="none";
+
+pop("CLAIM HANYA 1 KALI 😛");
+
+},700);
 
 }
 
@@ -183,10 +202,18 @@ OK
     return;
 }
 
+loadingSuccess();
+
+setTimeout(()=>{
+
 loading.style.display="none";
-spinBtn.innerHTML = "MEMUTAR...";
+
+spinBtn.innerHTML="MEMUTAR...";
+
+// lanjut spin
 
 // BARU SPIN
+},500);    
 let win=Math.floor(Math.random()*hadiah.length);
 
         const sectorSize=360/hadiah.length;
