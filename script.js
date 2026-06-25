@@ -1,4 +1,4 @@
-const hadiah=["20.000","25.000","30.000","35.000","40.000","45.000","50.000","100.000"];
+const hadiah=["RP. 25.000","RP. 50.000","RP. 100.000","RP. 250.000","RP. 500.000","RP. 100.000","RP. 50.000","RP. 25.000"];
 
 const warna=[
 "#ffd700",
@@ -144,7 +144,7 @@ loading.style.display = "flex";
 
     loading.style.display="none";
 
-   pop("USER ID SUDAH CLAIM !");
+   pop("USERID SUDAH CLAIM !");
 
     spinBtn.disabled=false;
     spinBtn.innerHTML="PUTAR SEKARANG";
