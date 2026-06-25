@@ -1,210 +1,248 @@
-/* ========================= */
-/* CONFIG */
-/* ========================= */
+const hadiah=["25.000","100.000","200.000","300.000","400.000","500.000","1.000.000","50.000"];
 
-const WEBAPP_URL =
-"ISI_URL_WEBAPP_APPS_SCRIPT_DISINI";
-
-/* ========================= */
-/* ELEMEN */
-/* ========================= */
-
-const envelope =
-document.getElementById("envelope");
-
-const popup =
-document.getElementById("popup");
-
-const reward =
-document.getElementById("reward");
-
-const claimBtn =
-document.getElementById("claimBtn");
-
-const usedPopup =
-document.getElementById("usedPopup");
-
-/* ========================= */
-/* USER ID DARI URL */
-/* ========================= */
-
-const userid =
-new URLSearchParams(
-window.location.search
-).get("id");
-
-/* ========================= */
-/* HADIAH */
-/* ========================= */
-
-const hadiahList = [
-
-"Rp18.000",
-"Rp28.000",
-"Rp38.000",
-"Rp58.000",
-"Rp88.000",
-"Rp188.000"
-
+const warna=[
+"#ffd700",
+"#ff7b00",
+"#00d9ff",
+"#8b2cff",
+"#ffd700",
+"#ff7b00",
+"#00d9ff",
+"#8b2cff"
 ];
 
-let hadiahTerpilih = "";
-let userSudahClaim = false;
+const API_URL = "https://script.google.com/macros/s/AKfycbw99-Zhf8ANVGI5E7cOMQZfCWK4lpYxwYC2-QaHXUjzD2Aw3tfeAfjCEoGqoDx58tje/exec";
 
-/* ========================= */
-/* CEK USER */
-/* ========================= */
+const cv=document.getElementById("wheel");
+const ctx=cv.getContext("2d");
+const loading=document.getElementById("loading");
 
-async function checkUser(){
+function draw(){
+let c=200,r=190;
 
-try{
+for(let i=0;i<hadiah.length;i++){
 
-const res = await fetch(
-WEBAPP_URL,
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
+let a=i*2*Math.PI/hadiah.length;
+let b=(i+1)*2*Math.PI/hadiah.length;
 
-userid:userid,
-action:"check"
+ctx.beginPath();
+ctx.moveTo(c,c);
+ctx.arc(c,c,r,a,b);
+ctx.fillStyle=warna[i];
+ctx.fill();
 
-})
-}
-);
+ctx.save();
+ctx.translate(c,c);
+ctx.rotate(a+(b-a)/2);
 
-const data = await res.json();
+ctx.fillStyle="#fff";
+ctx.font="bold 22px Arial";
+ctx.textAlign="center";
+ctx.fillText(hadiah[i],130,5);
 
-if(data.status === "used"){
-
-userSudahClaim = true;
-
-usedPopup.style.display = "flex";
-
-envelope.style.opacity = ".5";
-envelope.style.pointerEvents = "none";
-
+ctx.restore();
 }
 
-}catch(err){
-
-console.log(err);
-
+ctx.beginPath();
+ctx.arc(c,c,18,0,Math.PI*2);
+ctx.fillStyle="gold";
+ctx.fill();
 }
 
-}
+draw();
 
-/* ========================= */
-/* RANDOM HADIAH */
-/* ========================= */
+function pop(t){
 
-function randomHadiah(){
+msg.innerHTML = t;
 
-const index =
-Math.floor(
-Math.random() *
-hadiahList.length
-);
+popup.classList.remove("show");
 
-return hadiahList[index];
-
-}
-
-/* ========================= */
-/* BUKA SURAT */
-/* ========================= */
-
-envelope.addEventListener(
-"click",
-()=>{
-
-if(userSudahClaim) return;
-
-hadiahTerpilih =
-randomHadiah();
-
-reward.innerText =
-hadiahTerpilih;
-
+setTimeout(()=>{
 popup.classList.add("show");
-
-/* nanti confetti disini */
+},10);
 
 }
-);
 
-/* ========================= */
-/* CLAIM */
-/* ========================= */
+function resetForm(){
 
-claimBtn.addEventListener(
-"click",
-async ()=>{
+    userid.value = "";
 
-claimBtn.disabled = true;
+    spinBtn.innerHTML = "PUTAR SEKARANG";
 
-try{
+    spinBtn.disabled = false;
 
-const res = await fetch(
-WEBAPP_URL,
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
+    spinBtn.onclick = spinWheel;
 
-userid:userid,
-hadiah:hadiahTerpilih,
-action:"save"
+    rot = 0;
+
+    cv.style.transform = "rotate(0deg)";
+}
+
+let rot=0;
+
+spinBtn.onclick = spinWheel;
+
+async function spinWheel(){
+
+    let id = userid.value.trim();
+
+if(!id){
+    pop("ISI USER ID DAHULU");
+    return;
+}
+
+spinBtn.disabled = true;
+spinBtn.innerHTML = "MEMERIKSA...";
+loading.style.display = "flex";
+    
+
+    spinBtn.disabled = true;
+
+    fetch(API_URL,{
+        method:"POST",
+        body:JSON.stringify({
+            userid:id,
+            action:"check"
+        })
+    })
+    .then(r=>r.json())
+    .then(data=>{
+
+       if(data.status==="used"){
+
+    loading.style.display="none";
+
+    pop("CLAIM HANYA 1 KALI KAKAK 😛");
+
+    spinBtn.disabled=false;
+    spinBtn.innerHTML="PUTAR SEKARANG";
+
+    return;
+
+}
+
+loading.style.display="none";
+spinBtn.innerHTML = "MEMUTAR...";
+
+// BARU SPIN
+let win=Math.floor(Math.random()*hadiah.length);
+
+        const sectorSize=360/hadiah.length;
+        let angle=(win*sectorSize)+(sectorSize/2);
+
+        rot+=3600-angle-90;
+
+        cv.style.transform=`rotate(${rot}deg)`;
+
+        setTimeout(()=>{
+
+            let hasil=hadiah[win];
+
+            spinBtn.innerHTML="CLAIM "+hasil;
+
+            pop("🏆<br>SELAMAT!<br><br>ANDA MENDAPATKAN<br><span style='font-size:42px;color:#ffd700'>"+hasil+"</span>");
+
+            fetch(API_URL,{
+    method:"POST",
+    body:JSON.stringify({
+        userid:id,
+        hadiah:hasil,
+        action:"claim"
+    })
+})
+.then(r => r.json())
+.then(data => {
+
+    console.log("CLAIM:", data);
+
+    if(data.status !== "saved"){
+        pop("GAGAL MENYIMPAN DATA");
+    }
 
 })
+.catch(err => {
+
+    console.error(err);
+
+    pop("GAGAL MENYIMPAN DATA");
+
+});
+
+spinBtn.disabled=false;
+
+spinBtn.onclick=()=>{
+    window.location.href="https://ragam4d03.com/";
+};
+        },6000);
+
+    })
+ .catch(err=>{
+
+    console.error(err);
+
+    loading.style.display="none";
+
+    pop("GAGAL TERHUBUNG KE SERVER");
+
+    spinBtn.disabled=false;
+    spinBtn.innerHTML="PUTAR SEKARANG";
+
+});
+
 }
+
+const namaRandom=[
+"RA***","SL***","GA**","VIP***",
+"JACKP****","MAXW****","BOS***",
+"RAJ***","SULT***","HO***",
+"CUAN***","BIGWI***","DEW***",
+"LION***","KONTOLKECE***","SENOP***",
+"udacan***","peng***","Ondo***",
+"salamm***","Xsime***","kopra***",
+"iko***","brovipx***","Cucujeu***",
+"gacor***","heba***","Davidp***","MIMEK***",
+"BIJIMEL***","GARUKPE***","HAMBATUH**",
+"RAGAMGAC***","SEMPAKBO***","JP100JT***",
+];
+
+const hadiahRandom=[
+"Rp 25.000",
+"Rp 100.000",
+"Rp 200.000",
+"Rp 300.000",
+"Rp 400.0000",
+"Rp 500.0000",
+"Rp 1.000.0000",
+"Rp 50.0000",
+];
+
+function randomClaim(){
+
+const list=document.getElementById("recentList");
+
+let nama=namaRandom[Math.floor(Math.random()*namaRandom.length)];
+let hadiah=hadiahRandom[Math.floor(Math.random()*hadiahRandom.length)];
+
+const item=document.createElement("div");
+
+item.className="recent-item";
+
+item.innerHTML=`
+<span>${nama}</span>
+<span>${hadiah}</span>
+`;
+
+list.prepend(item);
+
+if(list.children.length>8){
+list.removeChild(list.lastElementChild);
+}
+}
+
+for(let i=0;i<6;i++){
+randomClaim();
+}
+
+setInterval(randomClaim,
+Math.floor(Math.random()*1000)+2000
 );
-
-const data = await res.json();
-
-if(data.status === "saved"){
-
-alert(
-"SELAMAT! HADIAH BERHASIL DIKLAIM"
-);
-
-userSudahClaim = true;
-
-claimBtn.innerText =
-"BERHASIL DIKLAIM";
-
-}
-
-else if(
-data.status === "used"
-){
-
-alert(
-"USER SUDAH PERNAH CLAIM"
-);
-
-}
-
-}
-catch(err){
-
-console.log(err);
-
-alert(
-"Gagal menghubungi server"
-);
-
-}
-
-}
-);
-
-/* ========================= */
-/* START */
-/* ========================= */
-
-checkUser();
