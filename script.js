@@ -53,6 +53,32 @@ draw();
 
 function pop(t){
 
+    // Default popup merah (USER ID SUDAH CLAIM)
+    document.querySelector(".popbox").classList.remove("win-popup");
+
+    const icon=document.querySelector(".pop-icon");
+
+    if(icon) icon.style.display="flex";
+
+    msg.innerHTML=t;
+
+    popup.classList.remove("show");
+
+    setTimeout(()=>{
+        popup.classList.add("show");
+    },10);
+
+}
+
+function winPop(t){
+
+    // Mode popup hadiah
+    document.querySelector(".popbox").classList.add("win-popup");
+
+    const icon=document.querySelector(".pop-icon");
+
+    if(icon) icon.style.display="none";
+
     msg.innerHTML=t;
 
     popup.classList.remove("show");
@@ -146,7 +172,7 @@ let win=Math.floor(Math.random()*hadiah.length);
 
             spinBtn.innerHTML="CLAIM "+hasil;
 
-            pop("🏆<br>SELAMAT!<br><br>ANDA MENDAPATKAN<br><span style='font-size:42px;color:#ffd700'>"+hasil+"</span>");
+            winPop("🏆<br>SELAMAT!<br><br>ANDA MENDAPATKAN<br><span style='font-size:42px;color:#ffd700'>"+hasil+"</span>");
 
             fetch(API_URL,{
     method:"POST",
