@@ -327,195 +327,118 @@ transform:scale(1);
 
 .popbox{
 
-width:90%;
-max-width:420px;
+    width:90%;
+    max-width:460px;
 
-animation: popupEnter .35s ease;
-padding:35px;
+    background:#101010;
 
-text-align:center;
-color:#fff;
+    border:3px solid #ff2d2d;
 
-border-radius:30px;
+    border-radius:25px;
 
-background:
-linear-gradient(
-145deg,
-rgba(30,30,30,.95),
-rgba(10,10,10,.98)
-);
+    padding:40px 30px;
 
-border:2px solid gold;
+    text-align:center;
 
-box-shadow:
-0 0 20px rgba(255,215,0,.6),
-0 0 50px rgba(255,215,0,.3),
-inset 0 0 20px rgba(255,255,255,.05);
+    box-shadow:
+    0 0 20px rgba(255,0,0,.45),
+    inset 0 0 0 1px rgba(255,255,255,.05);
 
-position:relative;
-overflow:hidden;
-
-transform:scale(.5) translateY(80px);
-
-transition:none;
+    animation:popupBounce .35s;
 
 }
 
-.popbox::before{
+.pop-icon{
 
-content:'';
+    width:140px;
+    height:140px;
 
-position:absolute;
+    margin:0 auto 30px;
 
-top:-100%;
-left:-50%;
+    border:5px solid #ff2d2d;
 
-width:60%;
-height:300%;
+    border-radius:50%;
 
-background:
-linear-gradient(
-90deg,
-transparent,
-rgba(255,255,255,.2),
-transparent
-);
+    display:flex;
 
-transform:rotate(25deg);
+    justify-content:center;
+    align-items:center;
 
-animation:shinePopup 3s linear infinite;
-}
+    color:#ff2d2d;
 
-@keyframes shinePopup{
-100%{
-left:150%;
-}
+    font-size:90px;
+
+    font-weight:bold;
 }
 
 #msg{
-letter-spacing:1px;
-text-shadow:
-0 0 10px rgba(255,215,0,.6),
-0 0 20px rgba(255,215,0,.4);
-font-family:'Orbitron',sans-serif;
 
-font-size:clamp(20px,5vw,26px);
-font-weight:900;
+    color:#fff;
 
-line-height:1.5;
+    font-family:'Orbitron',sans-serif;
 
-background:
-linear-gradient(
-90deg,
-#ffffff,
-#ffd700,
-#ffffff
-);
+    font-size:30px;
 
-background-size:300%;
+    font-weight:900;
 
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+    line-height:1.4;
 
-animation:
-goldMove 3s linear infinite,
-msgPulse 1.5s infinite;
-}
+    margin-bottom:35px;
 
-@keyframes goldMove{
-100%{
-background-position:300%;
-}
-}
+    text-shadow:none;
 
-@keyframes msgPulse{
-50%{
-transform:scale(1.03);
-}
+    background:none;
+
+    -webkit-text-fill-color:#fff;
+
 }
 
 .popbox button{
 
-margin-top:25px;
+    width:180px;
 
-width:180px;
-height:55px;
+    height:55px;
 
-border:none;
-border-radius:18px;
+    border:none;
 
-cursor:pointer;
+    border-radius:12px;
 
-font-size:18px;
-font-weight:800;
+    background:#ff2d2d;
 
-color:#000;
+    color:#fff;
 
-background:
-linear-gradient(
-90deg,
-#fff7a0,
-#ffd700,
-#ffb300,
-#ffd700
-);
+    font-size:20px;
 
-background-size:300%;
+    font-weight:bold;
 
-animation:btnGlow 3s linear infinite;
+    cursor:pointer;
 
-box-shadow:
-0 0 15px gold,
-0 0 35px rgba(255,215,0,.5);
+    transition:.25s;
 
-transition:.2s;
 }
 
 .popbox button:hover{
-transform:translateY(-2px);
-}
 
-@keyframes btnGlow{
-100%{
-background-position:300%;
-}
+    background:#ff5050;
+
 }
 
 @keyframes popupBounce{
 
 0%{
-transform:scale(.7) translateY(30px);
-}
 
-60%{
-transform:scale(1.05) translateY(-5px);
-}
+transform:scale(.7);
 
-100%{
-transform:scale(1) translateY(0);
-}
-
-}
-
-@keyframes popupWin{
-
-0%{
 opacity:0;
-transform:scale(.4) translateY(100px);
-}
 
-50%{
-opacity:1;
-transform:scale(1.08) translateY(-10px);
-}
-
-75%{
-transform:scale(.96) translateY(3px);
 }
 
 100%{
+
+transform:scale(1);
+
 opacity:1;
-transform:scale(1) translateY(0);
+
 }
 
 }
